@@ -14,6 +14,16 @@
             width: 48px;
             height: 48px;
         }
+
+        .selectable {
+            cursor: pointer;
+        }
+
+        .card:hover {
+            box-shadow: 0 0 0 0.2rem #bce3f6;
+            border-color: #bce3f6;
+            transition: all .55s ease-in-out;
+        }
     </style>
 </head>
 
@@ -49,9 +59,38 @@
             </nav>
         </div>
     </header>
+    <div class="container my-2">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <input class="form-control" id="itemFilter" type="text" placeholder="Filter...">
+            </div>
+        </div>
+    </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const itemFilter = document.getElementById("itemFilter");
+            itemFilter.addEventListener("input", () => {
+                const itemFilterLists = document.querySelectorAll(".itemFilterList");
+
+                const value = itemFilter.value.toLowerCase();
+                itemFilterLists.forEach(function (itemFilterList) {
+                    const items = itemFilterList.querySelectorAll(".itemFilterItem");
+                    items.forEach(function (item) {
+                        const itemText = item.textContent.toLowerCase();
+                        if (!value)
+                            item.hidden = false;
+                        else
+                            item.hidden = !(itemText.indexOf(value) > -1);
+                    });
+                });
+
+
+            });
+        });
+    </script>
 </body>
 
 </html>
